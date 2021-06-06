@@ -14,7 +14,6 @@ class Customer{
     public $postalCode;
     public $city;
     public $phone;
-    private $newsletter;
     private Database $conn;
 
     public function __construct(array $customer){
@@ -61,19 +60,7 @@ class Customer{
             $this->conn = new Database();
             $this->conn->connection->query($query);
             $newUserId = intval($this->conn->connection->lastInsertId());
-            if($this->newsletter == 'true'){
-                $this->newsletterSignUp($newUserId);
-            }return $newUserId;
-        }catch(Throwable $e){
-            echo $e;
-        }
-    }
-
-    public function newsletterSignUp(int $userId): void{
-        try{
-            $query = "INSERT INTO newsletter_list VALUES ('$userId');";
-            $this->conn = new Database();
-            $this->conn->connection->query($query);
+            return $newUserId;
         }catch(Throwable $e){
             echo $e;
         }

@@ -17,7 +17,7 @@ section {
 }
 
 .loginPopup{
-   position: absolute;
+   position: fixed;
    top: -150%;
    left: 50%;
    opacity: 1;

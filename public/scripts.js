@@ -94,7 +94,7 @@ function formValidation(){
     var comment = $("#comment");
     var radioInpost = $("#radioInpost");
     var radioDPD = $("#radioDPD");
-    var radioDPDPobranie = $("#radioInpost");
+    var radioDPDPobranie = $("#radioDPDPobranie");
     var radioPayU = $("#radioPayU");
     var radioPobranie = $("#radioPobranie");
     var radioPrzelew = $("#radioPrzelew");
@@ -107,7 +107,6 @@ function formValidation(){
     $(".field-error").html("");
 
     if (password.val() != "" || repeatPassword.val() != ""){
-        console.log("sadsa");
         if(password.val() != "" && repeatPassword.val() == ""){
             $("#passwordRepeat-error").html("Podaj hasło ponownie!");
             repeatPassword.css("background-color", "pink");
@@ -211,6 +210,7 @@ function formValidation(){
             isValid = false;
         }
     }
+
     if(!radioInpost.prop("checked") && !radioDPD.prop("checked") && !radioDPDPobranie.prop("checked")){
         $("#delivery-error").html("Wybierz metodę dostawy!");
         isValid = false;
@@ -250,7 +250,7 @@ function formValidation(){
 $(document).ready(function () {
     $("form").submit(function (event) {
         event.preventDefault();
-        if(true){
+        if(formValidation()){
             $(".field-error").html("");
             $("input").css("background-color", "white");
             var formData = {
@@ -276,7 +276,6 @@ $(document).ready(function () {
                 formData.diffAddress = $("#diffAddress").val(),
                 formData.diffPostalCode = $("#diffPostalCode").val(),
                 formData.diffCity = $("#diffCity").val()
-                console.log(formData);
             }
 
             if($("#rules").prop("checked")){
@@ -389,8 +388,9 @@ $(document).ready(function () {
             dataType: "json",
             encode: true,
         }).done(function (response) {
-            console.log(response);
             showThankYou(response.orderId);   
+        }).fail(function (response){
+            console.log(response);
         })
     }
 

@@ -7,8 +7,8 @@ $response = [];
 
 $cart = new Cart();
 $newOrder = new Order($_POST, $cart);
-$orderId = $newOrder->placeOrder();
+$orderId = $newOrder->placeOrder(); //składanie zamówienia
 
-$response['orderId'] = $orderId;
+$response['orderId'] = $orderId;  //numer zamówienia, potrzebny do wyświetlenia w podziękowaniu
 
 echo json_encode($response);
