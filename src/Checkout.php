@@ -1,0 +1,14 @@
+<?php
+
+require_once("Order.php");
+require_once("Cart.php");
+
+$response = [];
+
+$cart = new Cart();
+$newOrder = new Order($_POST, $cart);
+$orderId = $newOrder->placeOrder();
+
+$response['orderId'] = $orderId;
+
+echo json_encode($response);
