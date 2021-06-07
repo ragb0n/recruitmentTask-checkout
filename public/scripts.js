@@ -232,12 +232,9 @@ function formValidation(){
         isValid = false;
     }
     
-    // if(grecaptcha.getResponse() == "") {
-    //     $("#captcha-error").html("Potwierdź, że nie jesteś robotem!");
-    //     isValid = false;
-    // } else {
-    //     $("#captcha-error").html("");
-    // }
+    if(grecaptcha.getResponse().length === 0){
+        $("#captcha-error").html("Potwierdź, że nie jesteś robotem");
+    }
     
     if(isValid == true){
         return true;
@@ -373,8 +370,9 @@ $(document).ready(function () {
                     if(data.errors.rules){
                         $("#rules-error").html(data.errors.rules);
                     }
+
                 }else{
-                    sendOrderToDatabase(formData)
+                    captchaValidate(formData);
                 };
             });
     }
@@ -398,4 +396,27 @@ $(document).ready(function () {
     function showThankYou(orderId){
         $("#order-id").html(orderId);
         $("#thank-you.loginPopup").addClass("active");
+    }
+
+    //walidacja recaptcha
+    function captchaValidate(formData){
+        var captchaResponse = grecaptcha.getResponse();
+        $.ajax({
+            url: 'src/Captcha.php',
+            type: "post",
+            data: {captchaResponse},
+            dataType: 'json',
+        }).done(function(captchaValidationResponse) {
+            console.log(captchaValidationResponse);
+            if(captchaValidationResponse.status === "valid"){
+                sendOrderToDatabase(formData);
+            }else if(captchaValidationResponse.status === "invalid"){
+                $("#captcha-error").html(captchaValidationResponse.message);
+            }else if(captchaValidationResponse.status === "noCaptcha"){
+                $("#captcha-error").html(captchaValidationResponse.message);
+            }
+
+            }).fail(function(captchaValidationResponse) {
+                console.log("failed");
+            })
     }

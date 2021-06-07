@@ -1,8 +1,5 @@
 <?php 
-
-require_once('src/Cart.php');
-
-$cart = new Cart();
+session_start();
 ?>
 
 <!DOCTYPE html> 
