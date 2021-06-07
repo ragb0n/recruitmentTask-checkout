@@ -34,9 +34,9 @@ Create database using "database.sql" script and configure connection to it in "s
 * login form popup is shown, when "Logowanie" button is pressed
 * new customer is being signed up to newsletter in database, if proper option is selected in form
 * "Dodaj kod rabatowy" button shows input for discount code. If code is proper, discoun
+* place orders using other delivery address than customer address
+
 
 ## To Do
 * implement Recaptcha
 * implement discount code submit and proper price disount
-* implement other delivery address 
-
