@@ -1,4 +1,4 @@
-# smartbees-checkout
+# recruitmentTask-checkout
 Recruitment task 
 
 ## Table of contents
